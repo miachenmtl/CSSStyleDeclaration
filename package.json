@@ -2,7 +2,7 @@
     "name": "cssstyle",
     "description": "CSSStyleDeclaration Object Model implementation",
     "keywords": ["CSS", "CSSStyleDeclaration", "StyleSheet"],
-    "version": "0.2.18",
+    "version": "0.2.19",
     "homepage": "https://github.com/chad3814/CSSStyleDeclaration",
     "maintainers": [{
         "name": "Chad Walker",
@@ -33,7 +33,8 @@
       "nodeunit": "~0.8.0"
     },
     "scripts": {
-        "test": "nodeunit tests"
+        "test": "./scripts/run_tests.sh",
+        "prepublish": "node ./scripts/generateTestFiles.js"
     },
     "licenses": [
 	{
