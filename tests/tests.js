@@ -254,5 +254,43 @@ module.exports = {
         style.border = 0;
         test.ok('border: 0px;' === style.cssText, 'cssText is not "border: 0px;": ' + style.cssText);
         test.done();
+    },
+    'Setting values implicit and shorthand properties via cssText and setProperty should propagate to dependent properties': function (test) {
+        var style = new cssstyle.CSSStyleDeclaration();
+        test.expect(4);
+        style.cssText = 'border: 1px solid black;';
+        test.ok('border: 1px solid black;' === style.cssText, 'cssText is not "border: 1px solid black;": ' + style.cssText);
+        test.ok('1px solid black' === style.borderTop, 'borderTop is not "1px solid black": ' + style.borderTop);
+        style.border = '';
+        test.ok('' === style.cssText, 'cssText is not "": ' + style.cssText);
+        style.setProperty('border', '1px solid black');
+        test.ok('border: 1px solid black;' === style.cssText, 'cssText is not "border: 1px solid black;": ' + style.cssText);
+        test.done();
+    },
+    'Setting opacity should work': function (test) {
+        var style = new cssstyle.CSSStyleDeclaration();
+        test.expect(3);
+        style.setProperty('opacity', 0.75);
+        test.ok('opacity: 0.75;' === style.cssText, 'cssText is not "opacity: 0.75;": ' + style.cssText);
+        style.opacity = '0.50';
+        test.ok('opacity: 0.5;' === style.cssText, 'cssText is not "opacity: 0.5;": ' + style.cssText);
+        style.opacity = 1.0;
+        test.ok('opacity: 1;' === style.cssText, 'cssText is not "opacity: 1;": ' + style.cssText);
+        test.done();
+    },
+    'Setting a value to 0 should return the string value': function (test) {
+        var style = new cssstyle.CSSStyleDeclaration();
+        test.expect(1);
+        style.setProperty('fill-opacity', 0);
+        test.ok('0' === style.fillOpacity, 'fillOpacity is not "0": ' + style.fillOpacity);
+        test.done();
+    },
+    'onChange callback should be called when the cssText changes': function (test) {
+        var style = new cssstyle.CSSStyleDeclaration(function (cssText) {
+            test.ok('opacity: 0;' === cssText, 'cssText is not "opacity: 0;": ' + cssText);
+            test.done();
+        });
+        test.expect(1);
+        style.setProperty('opacity', 0);
     }
 };
