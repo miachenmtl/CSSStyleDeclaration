@@ -401,5 +401,12 @@ module.exports = {
         style.background = null;
         test.equal(style.cssText, '', 'cssText is not empty');
         test.done();
+    },
+    'Support non string entries in border-spacing': function (test) {
+        var style = new cssstyle.CSSStyleDeclaration();
+        test.expect(1);
+        style.borderSpacing = 0;
+        test.equal(style.cssText, 'border-spacing: 0;', 'border-spacing is not 0');
+        test.done();
     }
 };
