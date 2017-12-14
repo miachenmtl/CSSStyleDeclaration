@@ -46,7 +46,7 @@
   },
   "scripts": {
     "test": "./scripts/run_tests.sh",
-    "prepublish": "node ./scripts/generate_properties.js"
+    "prepare": "node ./scripts/generate_properties.js"
   },
   "license": "MIT"
 }
